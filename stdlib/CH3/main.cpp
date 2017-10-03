@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <cstddef>
 
 void f(int x) {
@@ -27,6 +28,38 @@ class P {
 		std::cout << "P(int) called with " << x << "\n";
 	}
 };
+
+class X {
+	friend std::ostream& operator<<(std::ostream& out, X &in) {
+		out << "X(" << in.x << ");\n";
+		return out;
+	}
+	private:
+		int x;
+	public:
+	X(int _x) {
+		x = _x;
+	}
+	X(const X& other) {
+		x = other.x;
+	}
+	// add a move constructor
+	X(X&& rvalue) {
+		this->x = rvalue.x;
+		rvalue.x = 0;
+	}
+
+
+	int operator++(){
+		return x++;
+	}
+
+	X operator+ (const X &other) {
+		return X(x + other.x);
+	}
+};
+
+
 
 int main() {
 	std::cout << "Hello world!\n";
@@ -70,5 +103,61 @@ int main() {
 		auto decl = *_pos;
 		std::cout << "Using an equivalent for with global end and begin to print " << decl << "\n";
 	}
+
+
+	// also supports arrays of known size
+	int array[] = { 1, 2, 3, 4, 5 };
+
+	for(auto &i : array) {
+		std::cout << i << "\n";
+	}
+
+
+	X xathon(3), yathon(2);
+
+
+	std::cout << xathon << yathon;
+
+	X cathon = xathon + yathon;
+
+	std::cout << cathon;
+	// exploring std::move
+	//
+	std::vector<X> item;
+
+	// copy of x
+	item.push_back(xathon);
+
+	for(auto &i : item) {
+		std::cout << i;
+	}
+
+	// let's try mutating xathon and then try printing the list
+	++xathon;
+
+	std::cout << "Xathon is now " << xathon;
+
+	std::cout << "what's the one in the list like ? \n";
+	for(auto &i : item) {
+		std::cout << i;
+	}
+	// now try std::move
+	
+	item.push_back(std::move(xathon));
+
+
+	// really by this point all the data in X has been moved out.
+	++xathon;
+
+	std::cout << "Xathon is now " << xathon;
+
+	
+	std::cout << "what's the one in the list like ? \n";
+	for(auto &i : item) {
+		std::cout << i;
+	}
+
+
+
 
 }
