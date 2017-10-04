@@ -1,6 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <cstddef>
+#include <string>
+
+constexpr int const_sqr(int x) {
+	return x*x;
+}
+float const_defined_arr[const_sqr(23)];
 
 void f(int x) {
 	std::cout << "f(int) called with param " << x << " \n";
@@ -59,6 +65,14 @@ class X {
 	}
 };
 
+
+void print() {}
+
+template<typename T, typename... Types>
+void print(const T&firstArg, const Types&... args) {
+	std::cout << firstArg << std::endl;
+	print(args...);
+}
 
 
 int main() {
@@ -159,5 +173,38 @@ int main() {
 
 
 
+	// new string literals
+	
+	// old format
+	std::string s = "\\\\n";
+	// new format
+	std::string k = R"(\\n)";
 
+	std::cout << "old_format: " << s << ", new_format: " << k << "\n";
+
+	// custom delimiters supported as well
+	std::string p = R"cool(\n)cool";
+	std::cout << p << "\n";
+
+	print("Amazing", 1, "Cool, it's essentially python" , 3, "those noobs couldn't handle this stuff.");
+
+
+	// lambdas!!!!
+	[] {
+		std::cout << "I'm in a lambda!" << std::endl;
+	}();
+
+	std::cout << [] (int a) -> int { return a +3; } (5);
+
+	int id = 43;
+
+	std::cout << "Id is initially " << id << std::endl;
+	auto f = [id] () mutable { std::cout << "Inside the lambda id is " << id++ << std::endl;};
+	f();
+	f();
+	f();
+	f();
+	std::cout << "Id is now " << id << std::endl;
+	// std::function allows for defining the types of lambda with std::functioN<int(int,int)>
 }
+
