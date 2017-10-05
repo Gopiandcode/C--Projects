@@ -75,6 +75,16 @@ void print(const T&firstArg, const Types&... args) {
 }
 
 
+// scoped enumearation
+enum class Salutation : char { mr, ms, co, none };
+
+
+template <typename T>
+void exm_f(T val) {
+	T q = T();
+	std::cout <<  q + val << "\n";
+}
+
 int main() {
 	std::cout << "Hello world!\n";
 	// nullptr allows you to avoid NULL being interpreted as an integer
@@ -206,5 +216,7 @@ int main() {
 	f();
 	std::cout << "Id is now " << id << std::endl;
 	// std::function allows for defining the types of lambda with std::functioN<int(int,int)>
+	
+	exm_f(10);
 }
 
