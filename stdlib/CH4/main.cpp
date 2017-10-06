@@ -13,6 +13,24 @@ void print_bitstring(string s) {
 	std::cout << s << std::endl;
 }
 
+class callable {
+	int x,y;
+
+	public:
+	callable(int c) {
+		x = c + 3;
+		y = c / 2;
+	}
+
+	int operator() (int g) {
+		return g * x * y;
+	}
+
+	int operator() (int p, int z) {
+		return x * p * z * y;
+	}
+};
+
 int main() {
 	std::cout << "Hello world!\n";
 	try {
@@ -20,4 +38,8 @@ int main() {
 	} catch(const std::invalid_argument& e) {
 		std::cout << e.what() << std::endl;
 	}
+
+	callable caller(2);
+
+	std::cout << caller(8) << ", " << caller(3, 2) << std::endl;
 }
