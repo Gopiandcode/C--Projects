@@ -30,7 +30,8 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 			break;
 	}
 	std::cout << "Colour set!" << std::endl;
-	static const char *Shapes[] = {
+	static const char *Shapes[][4] = {
+		{
 		" *  "
 		" *  "
 		" *  "
@@ -50,10 +51,8 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 		"****"
 		"    "
 		"    ",
-
-
-
-
+	},
+	{
 		" *  "
 		" *  "
 		" *  "
@@ -72,10 +71,33 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 		"    "
 		"****"
 		"   *"
+		"    "
+	},
+	{
+		" *  "
+		" *  "
+		" *  "
+		" ** ",
+
+		"    "
+		"****"
+		"*   "
 		"    ",
 
+		"**  "
+		" *  "
+		" *  "
+		" *  ",
+
+		"   *"
+		"****"
+		"    "
+		"    "
+	},
 
 
+
+	{
 
 		"    "
 		" ** "
@@ -92,19 +114,19 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 		"    "
 		" ** "
 		" ** "
-		"    ",
+		"    "
+	},
 
-
-
+	{
 
 		"  * "
 		" ** "
 		" *  "
 		"    ",
 
+		"    "
 		"**  "
 		" ** "
-		"    "
 		"    ",
 
 		" *  "
@@ -112,13 +134,13 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 		"  * "
 		"    ",
 
+		"    "
 		"**  "
 		" ** "
 		"    "
-		"    ",
+	},
 
-
-
+	{
 
 		" *  "
 		" ** "
@@ -139,18 +161,18 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 		"*** "
 		"    "
 		"    ",
+	},
 
-
-
-
+	
+	{
 		" *  "
 		" ** "
 		"  * "
 		"    ",
 		
+		"    "
 		" ** "
 		"**  "
-		"    "
 		"    ",
 		
 		" *  "
@@ -158,20 +180,19 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 		"  * "
 		"    ",
 
+		"    "
 		" ** "
 		"**  "
 		"    "
-		"    "
+	}
 	};
 
 
 
 	for(auto x = 0; x < 4; ++x) {
 		for(auto y = 0; y < 4; ++y){
-	std::cout << "iterating(" << x << ", " << y <<")" << std::endl;
-	std::cout << "Checking [" << type_ * 4 + angle_  << "][" << x + y * 4 <<"]" << std::endl;
-		if(Shapes[type_ * 4 + angle_][x + y * 4] != ' ') 	{
-	SDL_Rect rect{(x + x_)* 720/2/10, (y+y_)*720/2/10/2,720/2/10, 720/2/10};
+		if(Shapes[type_][angle_][x + y * 4] != ' ') 	{
+	SDL_Rect rect{(x + x_)* 720/2/10+1, (y+y_)*720/2/10 +1,720/2/10-2, 720/2/10-2};
 	SDL_RenderFillRect(renderer, &rect);
 		} 
 		}

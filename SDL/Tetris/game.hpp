@@ -19,6 +19,8 @@ class Game {
 		SDL_Window *window_;
 		SDL_Renderer *renderer_;
 		Well well;
+		Tetronimo tetronimo_;
+		uint32_t moveTime_;
 		
 
 };
