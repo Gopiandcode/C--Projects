@@ -9,6 +9,9 @@ class Tetronimo {
 		void draw(SDL_Renderer *renderer);
 		void move(int dx, int dy);
 		void rotate();
+		bool isBlock(int x, int y) const;
+		int x() const;
+		int y() const;
 	private:
 		int x_;
 		int y_;

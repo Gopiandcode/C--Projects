@@ -18,9 +18,10 @@ class Game {
 
 		SDL_Window *window_;
 		SDL_Renderer *renderer_;
-		Well well;
+		Well well_;
 		Tetronimo tetronimo_;
 		uint32_t moveTime_;
+		void check(const Tetronimo& t);
 		
 
 };

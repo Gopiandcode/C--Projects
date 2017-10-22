@@ -30,7 +30,33 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 			break;
 	}
 	std::cout << "Colour set!" << std::endl;
-	static const char *Shapes[][4] = {
+
+
+	for(auto x = 0; x < 4; ++x) {
+		for(auto y = 0; y < 4; ++y){
+		if(isBlock(x,y)) 	{
+	SDL_Rect rect{(x + x_)* 720/2/10+1, (y+y_)*720/2/10 +1,720/2/10-2, 720/2/10-2};
+	SDL_RenderFillRect(renderer, &rect);
+		} 
+		}
+	}
+
+}
+
+void Tetronimo::move(int dx, int dy) {
+	x_ += dx;
+	y_ += dy;
+
+}
+
+
+void Tetronimo::rotate() {
+	++angle_;
+	angle_ %= 4;
+}
+
+bool Tetronimo::isBlock(int x, int y) const {
+		static const char *Shapes[][4] = {
 		{
 		" *  "
 		" *  "
@@ -187,27 +213,11 @@ void Tetronimo::draw(SDL_Renderer *renderer) {
 	}
 	};
 
-
-
-	for(auto x = 0; x < 4; ++x) {
-		for(auto y = 0; y < 4; ++y){
-		if(Shapes[type_][angle_][x + y * 4] != ' ') 	{
-	SDL_Rect rect{(x + x_)* 720/2/10+1, (y+y_)*720/2/10 +1,720/2/10-2, 720/2/10-2};
-	SDL_RenderFillRect(renderer, &rect);
-		} 
-		}
-	}
-
+	return	Shapes[type_][angle_][x + y * 4] != ' ';
 }
-
-void Tetronimo::move(int dx, int dy) {
-	x_ += dx;
-	y_ += dy;
-
+int Tetronimo::x() const {
+	return x_;
 }
-
-
-void Tetronimo::rotate() {
-	++angle_;
-	angle_ %= 4;
+int Tetronimo::y() const {
+	return y_;
 }
